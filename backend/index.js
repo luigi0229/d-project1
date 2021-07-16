@@ -12,51 +12,24 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-// db.once('open', function() {
-//     console.log("Connection Successful!");
-//
-//     // define Schema
-//     var VotesSchema = mongoose.Schema({
-//       name: String,
-//       number: Number,
-//     });
-//
-//     // compile schema to model
-//     var Book = mongoose.model('Book', VotesSchema, 'Votes');
-//
-//     // a document instance
-//     // var book1 = new Book({ name: 'Introduction to Mongoose22', price: 10, quantity: 25 });
-//
-//     // save model to database
-//     book1.save(function (err, book) {
-//       if (err) return console.error(err);
-//       console.log(book.name + " saved to bookstore collection.");
-//     });
-// });
-
-app.get("/test", (req, res) => {
+app.get("/results", (req, res) => {
  // res.send(“Get users”);
-  res.send("hi");
+  // res.send("hi");
+
 });
 
-app.get("/vote", (req, res) => {
+app.get("/vote", function (req, res) {
 
-      var VotesSchema = mongoose.Schema({
-        Name: String,
-        Age: Number,
-      });
- // res.send(“Get users”);
- var query = {Name: "Eli", Age: 22},
-    update = { expire: new Date() },
-    options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    Vote = mongoose.model('Book', VotesSchema, 'Votes');
-    Vote.findOneAndUpdate(query, update, options, function(error, result) {
-      if (error) return;
-
-      console.log("RESuuLT IS -", result)
-      // do something with the document
-  });
-  // res.send("hi");
+  console.log("1", req.query)
+  console.log("2", req.body)
+  console.log("3", req.params)
+  // console.log("2", req.data)
+  Vote.findOneAndUpdate( {Name: req.query.color},
+       {$inc : {'Poll' : 1}},
+       {new: true},
+       function(err, response) {
+            // do something
+       });
 });
 
 // Meme.findOneAndUpdate( {_id: res._id},
@@ -69,5 +42,18 @@ app.get("/vote", (req, res) => {
 
 
 app.listen(PORT, function() {
- console.log(`Listening on ${PORT}`);
+  var VotesSchema = mongoose.Schema({
+    Name: {type: String, unique: true},
+    Poll: Number,
+  });
+
+  var query1 = {Name: "Red", Poll: 0};
+  var query2 = {Name: "Blue", Poll: 0};
+  var update = { expire: new Date() };
+  var options = { upsert: true, new: true, setDefaultsOnInsert: true };
+  Vote = mongoose.model('Book', VotesSchema, 'Votes');
+  Vote.findOneAndUpdate(query1, update, options, (error, result)=> {console.log("Created ", result)});
+  Vote.findOneAndUpdate(query2, update, options, (error, result)=> {console.log("Created ", result)});
+
+  console.log(`Listening on ${PORT}`);
 });
