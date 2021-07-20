@@ -22,12 +22,16 @@ io.on("connection", (socket) => {
     });
   }
 
+  socket.on("disconnect", () => {
+  console.log("Client disconnected");
+});
+
   socket.on("fetch", () => {
     console.log("got fetched")
     Vote.find({}, function (err, votes) {
       // res.send(users);
       console.log("found votes", votes)
-      socket.broadcast.emit("update", votes)
+      socket.emit("update", votes)
     });
   })
 
@@ -36,7 +40,8 @@ io.on("connection", (socket) => {
          {$inc : {'value' : 1}},
          {new: true},
          function(err, response) {
-         }).then(inner())
+           inner();
+         })
   });
 
 });

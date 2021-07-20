@@ -1,8 +1,8 @@
 import React from 'react';
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:8080";
-const socket = socketIOClient(ENDPOINT, { transports : ['websocket'] });
-
+// import socketIOClient from "socket.io-client";
+// const ENDPOINT = "http://127.0.0.1:8080";
+// const socket = socketIOClient(ENDPOINT, { transports : ['websocket'] });
+import {SocketContext, socket} from './socket';
 class Main extends React.Component {
 
   vote(color) {

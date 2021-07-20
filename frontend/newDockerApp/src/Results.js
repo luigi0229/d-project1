@@ -1,8 +1,10 @@
 import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:8080";
-const socket = socketIOClient(ENDPOINT, { transports : ['websocket'] });
+import {SocketContext, socket} from './socket';
+
+// import socketIOClient from "socket.io-client";
+// const ENDPOINT = "http://127.0.0.1:8080";
+// const socket = socketIOClient(ENDPOINT, { transports : ['websocket'] });
 
 class Results extends React.Component {
 

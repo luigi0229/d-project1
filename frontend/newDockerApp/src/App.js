@@ -3,6 +3,8 @@ import './App.css';
 import React from "react";
 import Main from './Main';
 import Results from './Results';
+import {SocketContext, socket} from './socket';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +14,7 @@ import {
 
 export default function App() {
   return (
+    <SocketContext.Provider value={socket}>
     <Router>
       <div>
 
@@ -27,5 +30,6 @@ export default function App() {
         </Switch>
       </div>
     </Router>
+    </SocketContext.Provider>
   );
 }
