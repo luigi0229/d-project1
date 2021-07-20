@@ -1,21 +1,12 @@
 import React from 'react';
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:8080";
+const socket = socketIOClient(ENDPOINT, { transports : ['websocket'] });
 
 class Main extends React.Component {
 
   vote(color) {
-    // const requestOptions = {
-    // method: 'POST',
-    // headers: { 'Content-Type': 'application/json' },
-    // body: JSON.stringify({ color: 'Red' })
-    // };
-    // let color = "red";
-    // const encodedValue = encodeURIComponent(color);
-    fetch(`http://localhost:8080/vote?color=${color}`, {
-      mode: 'no-cors',
-      method: "GET",
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(console.log("sent request"))
+    socket.emit("vote", {value:color});
   }
 
   render() {

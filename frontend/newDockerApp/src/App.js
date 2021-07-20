@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import Main from './Main';
+import Results from './Results';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,11 +18,8 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/results">
+            <Results />
           </Route>
           <Route path="/">
             <Main />
@@ -30,17 +28,4 @@ export default function App() {
       </div>
     </Router>
   );
-}
-
-function Home() {
-  console.log("hit Home")
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
