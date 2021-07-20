@@ -46,28 +46,22 @@ io.on("connection", (socket) => {
 
 });
 // make a connection
-mongoose.connect('mongodb://localhost:27017/Election');
+mongoose.connect('mongodb://mongo:27017/Election');
 
 // get reference to database
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-// app.get("/getResults",  (req, res) => {
-//   Vote.find({}, function (err, votes) {
-//     // res.send(users);
-//     console.log("votess", votes)
-//     res.json(votes)
-//   });
-//   // res.json({hi:"hello"})
-//
-// });
+app.get("/test",  (req, res) => {
+  res.send("Hello, got it");
+});
 
-//
-// app.get("/vote", function (req, res) {
-//
-//
-// });
+
+app.get("/vote", function (req, res) {
+
+
+});
 
 server.listen(PORT, () =>{
     var VotesSchema = mongoose.Schema({

@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  sample-prod:
+    container_name: sample-prod
+    build: ./frontend/newDockerApp
+    depends_on:
+    - web
+    ports:
+    - '80:80'
+    links:
+    - web
+  web:
+    container_name: web
+    build: ./backend
+    ports:
+    - "8080:8080"
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo
+    ports:
+    - "27017:27017"

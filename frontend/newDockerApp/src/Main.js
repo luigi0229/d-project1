@@ -56,7 +56,7 @@ class Main extends React.Component {
               </button>
               </div>
               <div style={{display: 'flex',  justifyContent:'center'}}>
-              <a href="http://localhost:3000/results">
+              <a href="http://localhost/results">
               <button
               style={{
                 backgroundColor:'black',

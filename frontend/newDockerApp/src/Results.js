@@ -40,19 +40,8 @@ class Results extends React.Component {
       } else {
        this.setState({data: data, loading: false, dummyDataFlag: false})
      }
-      // else if (data[0].value > 0 && data[1].value == 0) {
-    //     dummyData[0].value = data[0].value
-    //     this.setState({data: dummyDataRed, loading: false, dummyDataFlag: true})
-    //   } else if (data[0].value == 0 && data[1].value > 0) {
-    //     dummyData[1].value = data[1].value
-    //     this.setState({data: dummyDataBlue, loading: false, dummyDataFlag: true})
-    //   }
-      //  else {
-      //   this.setState({data: data, loading: false, dummyDataFlag: false})
-      // }
     });
 
-    // socket.emit("vote", {value:'Red'});
 
   }
 
@@ -76,7 +65,7 @@ class Results extends React.Component {
             data={this.state.data}
           />
           <div style={{display: 'flex',  justifyContent:'center'}}>
-          <a href="http://localhost:3000">
+          <a href="http://localhost:80">
           <button
           style={{
             backgroundColor:'black',
