@@ -11,6 +11,6 @@ The DB container is a stock MongoDB docker image.
 
 The purpose of this app is to familiarize myself with docker-compose deployment, and how containerized applications interact with each other.
 
-# Docker Voting App (WIP)
+# Deployment
 
     docker-compose up
