@@ -16,7 +16,7 @@ export default function App() {
   return (
     <SocketContext.Provider value={socket}>
     <Router>
-      <div>
+      <div >
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}

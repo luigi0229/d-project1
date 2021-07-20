@@ -6,9 +6,24 @@ import {SocketContext, socket} from './socket';
 // const ENDPOINT = "http://127.0.0.1:8080";
 // const socket = socketIOClient(ENDPOINT, { transports : ['websocket'] });
 
+const dummyData = [
+  { title: '0', value: 1, color: '#924F55' },
+  { title: '0', value: 1, color: '#4F5992' }
+];
+
+// let dummyDataRed = [
+//   { title: '0', value: 1, color: '#924F55' },
+//   { title: '', value: 0, color: '#4F5992' }
+// ];
+//
+// let dummyDataBlue = [
+//   { title: '', value: 0, color: '#924F55' },
+//   { title: '0', value: 1, color: '#4F5992' }
+// ];
+
 class Results extends React.Component {
 
-  state = {data: [], loading: true}
+  state = {data: [], loading: true, dummyDataFlag: false}
 
   componentDidMount() {
     console.log("mounted")
@@ -17,50 +32,71 @@ class Results extends React.Component {
 
     socket.on("update", data => {
       // console.log("data", data)
-      console.log("got results")
+      console.log("got results",data)
       this.setState({data: data, loading: false})
+      if(data[0].value == 0 && data[1].value == 0){
+        console.log("in if")
+        this.setState({data: dummyData, loading: false, dummyDataFlag: true})
+      } else {
+       this.setState({data: data, loading: false, dummyDataFlag: false})
+     }
+      // else if (data[0].value > 0 && data[1].value == 0) {
+    //     dummyData[0].value = data[0].value
+    //     this.setState({data: dummyDataRed, loading: false, dummyDataFlag: true})
+    //   } else if (data[0].value == 0 && data[1].value > 0) {
+    //     dummyData[1].value = data[1].value
+    //     this.setState({data: dummyDataBlue, loading: false, dummyDataFlag: true})
+    //   }
+      //  else {
+      //   this.setState({data: data, loading: false, dummyDataFlag: false})
+      // }
     });
 
     // socket.emit("vote", {value:'Red'});
 
   }
 
-  // vote(color) {
-  //   // const requestOptions = {
-  //   // method: 'POST',
-  //   // headers: { 'Content-Type': 'application/json' },
-  //   // body: JSON.stringify({ color: 'Red' })
-  //   // };
-  //   // let color = "red";
-  //   // const encodedValue = encodeURIComponent(color);
-  //   fetch(`http://localhost:8080/vote?color=${color}`, {
-  //     mode: 'no-cors',
-  //     method: "GET",
-  //     headers: { 'Content-Type': 'application/json' }
-  //   })
-  //     .then(console.log("sent request"))
-  // }
-
   render() {
-    // console.log("state", this.state)
-    // const { data } = this.state
-    // console.log("data", data)
     return (
-      <div>
-        <h1>Results</h1>
+      <div style={{ display: 'flex', backgroundColor:'#f8f8ff',  justifyContent:'center', alignItems:'center'}}>
         {this.state.loading ?
           <h1>Loading</h1>
         :
         <div style={{justifyContent:'center', alignItems:'center', height:'70%', width:'70%'}}>
+          <h2 style={{textAlign:'center'}}>Results</h2>
           <PieChart
             segmentsShift={.5}
-            radius = {40}
-            label = {()=>{return "hi"}}
-            labelStyle = {{fontSize:'5px'}}
+            radius = {35}
+            label={({ dataEntry }) =>
+              this.state.dummyDataFlag ? dataEntry.title
+              :
+              dataEntry.value == 0 ? '' : dataEntry.value
+            }
+            labelStyle = {{fontSize:'10px', fill:'white', fontWeight:'700'}}
             data={this.state.data}
-          />;
+          />
+          <div style={{display: 'flex',  justifyContent:'center'}}>
+          <a href="http://localhost:3000">
+          <button
+          style={{
+            backgroundColor:'black',
+            width:'15vh',
+            height:'6vh',
+            borderRadius:6,
+            borderWidth:1,
+            borderColor:'grey',
+            fontColor:'white',
+            marginTop:30,
+            }}
+            >
+            <text style={{color:'white', fontWeight:'700', fontSize:'2vh'}}>Vote</text>
+          </button>
+          </a>
+          </div>
+
         </div>
         }
+
 
 
 
